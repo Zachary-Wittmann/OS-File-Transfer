@@ -21,14 +21,6 @@ def receive_file(connection, filename):
                 break
             file.write(data)
 
-def save_file(filename):
-    file_path = os.path.join(os.getcwd() + "/transferred-files", filename)
-    if os.path.isfile(file_path):
-        os.remove(file_path)
-        os.mknod(file_path)
-    else:
-        os.mknod(file_path)
-
 def frame_and_send_ack(connection, ack_message):
     ack_message = ack_message.encode()
     connection.sendall(ack_message)
@@ -50,7 +42,6 @@ def main():
     print(f"Receiving file: {received_filename}")
 
     receive_file(connection, received_filename)
-    #save_file(received_filename)
     print("File has been successfully received.")
 
     ack_message = "Successfully received. Acknowledgement sent"
